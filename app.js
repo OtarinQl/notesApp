@@ -1,7 +1,5 @@
 const notes = require('./notes.js')
 const yargs = require('yargs')
-const chalk = require('chalk')
-const print = console.log 
 //================================TODO================================
 //Añade una nota.
 yargs.command({
@@ -9,10 +7,9 @@ yargs.command({
     describe:'Add a new note.',
     builder: {
         title: {
-            describe:'Title note.',
+            describe:'Note title to add..',
             demandOption: true,
-            type: 'string',
-            default: 'Default title'
+            type: 'string'
         },
         body: {
             describe:'Body note.',
@@ -20,9 +17,7 @@ yargs.command({
             type: 'string'
         }
     },
-    handler: (argv)=>{
-        notes.addNote(argv.title,argv.body)
-    }
+    handler: (argv)=>notes.addNote(argv.title,argv.body)
 })
 
 //Elimina una nota.
@@ -30,23 +25,33 @@ yargs.command({
     command:'remove',
     describe:'Remove a note.',
     builder: {
-        name: {
-            describe:'Name note that gonna be removed.',
+        title: {
+            describe:'Note name that gonna be removed.',
             demandOption: true,
             type:'string'
         }
     },
-    handler: (argv)=>{
-        print(chalk.bgRed.white.bold('Delete the note: '+argv.name+'?'))
-    }
+    handler: (argv)=>notes.removeNote(argv.title)
 })
 
 //Edita una nota.
 yargs.command({
     command:'edit',
     describe:'Edit a note.',
+    builder:{
+        title:{
+            describe: 'Note title',
+            demandOption: true,
+            type: 'string' 
+        },
+        edit:{
+            describe: 'Body edit.',
+            demandOption: true,
+            type: 'string' 
+        }
+    },
     handler: (argv)=>{
-        print(chalk.bgBlue.bold('Editing a note.'))
+        
     }
 })
 
@@ -54,8 +59,15 @@ yargs.command({
 yargs.command({
     command:'read',
     describe:'Read a note.',
+    builder:{
+        title:{
+            describe: 'Note title',
+            demandOption: true,
+            type: 'string' 
+        }
+    },
     handler: (argv)=>{
-        print(chalk.bgCyan.bold('Reading a note.'))
+        
     }
 })
 
@@ -64,7 +76,7 @@ yargs.command({
     command:'list',
     describe:'List a note.',
     handler: (argv)=>{
-        print(chalk.bold.bgMagenta('Listing a note.'))
+        notes.listNotes()
         }
     })
 
