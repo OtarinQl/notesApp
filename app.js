@@ -34,27 +34,6 @@ yargs.command({
     handler: (argv)=>notes.removeNote(argv.title)
 })
 
-//Edita una nota.
-yargs.command({
-    command:'edit',
-    describe:'Edit a note.',
-    builder:{
-        title:{
-            describe: 'Note title',
-            demandOption: true,
-            type: 'string' 
-        },
-        edit:{
-            describe: 'Body edit.',
-            demandOption: true,
-            type: 'string' 
-        }
-    },
-    handler: (argv)=>{
-        
-    }
-})
-
 //Lee una nota.
 yargs.command({
     command:'read',
@@ -66,9 +45,7 @@ yargs.command({
             type: 'string' 
         }
     },
-    handler: (argv)=>{
-        
-    }
+    handler: (argv)=>notes.readNote(argv.title)
 })
 
 //Enlista una nota.
