@@ -14,16 +14,24 @@ const showNotes = ()=>{
     }
 }
 
-const getNotes = ()=>{
-    console.log('Your notes are... ')
-    //Luego añadir algo que obtenga la lista de notas
+const readNote = (title)=>{
+    const noteList = showNotes()
+    const noteFound = noteList.find((note)=>{return note.title === title})
+    
+    debugger
+
+    if(!noteFound){
+        console.log(chalk.bgRed('The note ' + title + ' wasn\'t found.'))
+    } else {
+        console.log(chalk.bgCyan.bold(noteFound.title + ': ' + noteFound.body))    
+    }
 }
 
 const addNote = (title,body)=>{
     const noteList = showNotes()
     const secondList = noteList.find((note)=>{return note.title === title})
     
-    if(secondList === undefined){
+    if(!secondList){
         noteList.push({
             title: title,
             body: body
@@ -40,7 +48,7 @@ const removeNote = (title)=>{
     var noteList = showNotes()
     const searcher = noteList.find((note)=>{return note.title === title})
     
-    if(searcher === undefined){
+    if(!searcher){
         console.log(chalk.bgCyan.white.bold('No se ha encontrado la nota.'))
     } else {
         noteList.splice(noteList.indexOf(searcher),1)
@@ -61,8 +69,8 @@ const listNotes = ()=>{
 
 
 module.exports = {
-    getNotes: getNotes,
     addNote: addNote,
     removeNote: removeNote,
-    listNotes: listNotes
+    listNotes: listNotes,
+    readNote: readNote
 }
