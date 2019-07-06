@@ -48,10 +48,10 @@ yargs.command({
     handler: (argv)=>notes.readNote(argv.title)
 })
 
-//Enlista una nota.
+//Enlista las notas.
 yargs.command({
     command:'list',
-    describe:'List a note.',
+    describe:'List all the notes.',
     handler: (argv)=>{
         notes.listNotes()
         }
